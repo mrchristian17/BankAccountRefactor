@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 public class InputManager {
 
@@ -83,9 +85,10 @@ public class InputManager {
             try {
                 String inputTransaction = in.nextLine();
                 transactionTypeEnum = RunBank.TransactionType.valueOf(inputTransaction.toUpperCase());
+
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("Input is not a valid transaction type: ");
+                System.out.println("Input is not a valid transaction type.");
                 System.out.println();
                 continue;
             }
@@ -220,17 +223,77 @@ public class InputManager {
         return inputAmount;
     }
 
+    public String checkDateOfBirthInput() throws ParseException {
+        String regex = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
+        String inputDobPattern = "MM/dd/yy";
+        SimpleDateFormat inDateFormat = new SimpleDateFormat("MM/dd/yy");
+
+        String outputDobPattern = "MMMMM dd, yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(outputDobPattern);
+
+        while(true) {
+            System.out.println("What is your Date of Birth?");
+            System.out.println(inputDobPattern);
+            String dobString = in.nextLine();
+            if(dobString.matches(regex)) {
+                Date date = simpleDateFormat.parse(dobString);
+                return inDateFormat.format(date);
+            }
+            System.out.println("Invalid Date of Birth. Please try again..");
+        }
+    }
+
+    public String checkPhoneNumberInput() {
+        String phoneNumber = "";
+        while(true) {
+            System.out.println("Phone Number?");
+            System.out.println("3-digit area code: ");
+            String area = in.nextLine();
+            System.out.println("7 digit phone number: ");
+            String number = in.nextLine();
+            if (area == null || number == null) {
+                System.out.println("Not a valid phone number...");
+                continue;
+            }
+            try {
+                int intArea = Integer.parseInt(area);
+                int intNumber = Integer.parseInt(number);
+                String combinedNumber = area+number;
+                if(combinedNumber.length() != 10)
+                    throw new NumberFormatException();
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid phone number...");
+                continue;
+            }
+            phoneNumber = "(" + area + ") " + number.substring(0,3) + "-" + number.substring(3,7);
+            break;
+        }
+        return phoneNumber;
+    }
+
+    public String checkEmailAddressInput() {
+        //regex that looks for @ and ensures that there is a decimal extension at the end
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        while (true) {
+            System.out.println("What is your email?");
+            String email = in.nextLine();
+            if (email.matches(regex))
+                return email;
+            System.out.println("Invalid email. Please try again");
+        }
+    }
+
     public void checkPassword(String correctPassword)  {
         while (true) {
-            System.out.println("Please enter your password; ");
-            String inPassword = in.next();
-
             try {
+                System.out.println("Please enter your password; ");
+                String inPassword = in.nextLine();
                 if(!inPassword.equals(correctPassword))
                     throw new IncorrectPasswordException(inPassword);
                 break;
             } catch (IncorrectPasswordException e) {
-                System.out.println("Please try again...");
+                System.out.println(e);
+                System.out.println("Please try again: ");
             }
         }
     }

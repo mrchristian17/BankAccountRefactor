@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class BankStatement {
+public class BankStatement implements Printable {
     private Customer customer;
     private String fileName;
     private double checkingStartingBalance;
@@ -46,7 +46,7 @@ public class BankStatement {
     /**
      * Creates a new file or overwrites file if it already exists
      */
-    public void createBankStatementFile() {
+    public void createFile() {
         //Creates file
         try {
             File bankStatement = new File(this.fileName);
@@ -66,13 +66,13 @@ public class BankStatement {
     /**
      * writes bank statement with user info, transactions and starting and final balances for all accounts
      */
-    public void writeBankStatementFile() {
+    public void writeFile(String bankSummary) {
         //calls create file
         //overwrites if called multiple times
-        createBankStatementFile();
+        createFile();
         try {
             FileWriter myWriter = new FileWriter(this.fileName, true);
-            myWriter.write(getBankStatementSummary());
+            myWriter.write(bankSummary);
             myWriter.close();
             System.out.println("Successfully wrote to "+ this.fileName+"\n");
         } catch (IOException e) {

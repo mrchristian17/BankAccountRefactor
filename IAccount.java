@@ -4,7 +4,7 @@
  * @version 3.0
  * @since March 03, 2021
  */
-public interface IAccount {
+public interface IAccount{
     //refactor
     public boolean withdraw(double amount);
     public boolean deposit(double amount);

@@ -26,9 +26,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class RunBank {
-    private static Scanner in = new Scanner(System.in);
+public class RunBank implements Printable {
+    private static Scanner  in= new Scanner(System.in);
     private static InputManager inputManger = new InputManager();
+    private static RunBank runBank = new RunBank();
+
 
     /**
      * Transaction File Types
@@ -134,11 +136,11 @@ public class RunBank {
      * Reads file and creates list of Customer objects
      * Currently allocates: First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Credit Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance
      */
-    public static List<Customer> fileReader() {
+    public static List<Customer> fileReader(String fileName) {
         List<Customer> accounts = new ArrayList<Customer>();
         String[] header = null;
         try {
-            File bankAccountsFile = new File("src/CS 3331 - Bank Users 4.csv");
+            File bankAccountsFile = new File(fileName);
             Scanner file_reader= new Scanner(bankAccountsFile);
             int count = 0;
 
@@ -240,7 +242,9 @@ public class RunBank {
         }
         catch (FileNotFoundException e) {
             System.out.println("File Not Found");
-            e.printStackTrace();
+            System.out.println("What is the file name?");
+            String inFileName = in.nextLine();
+            fileReader(inFileName);
         }
         return accounts;
     }
@@ -253,7 +257,7 @@ public class RunBank {
      * Overwrites transactionsReport.txt file when new instance of program is run
      * Has catches in the case that there are errors
      */
-    public static void createFile() {
+    public void createFile() {
         //Creates transactions file
         try {
             File transactionReport = new File("transactionReport.txt");
@@ -310,7 +314,7 @@ public class RunBank {
 
                 //checks to see if file contains a valid transactionType
                 if(!inputManger.checkFileTransactionTypeInput(transactionType)) {
-                    fileWriter(transactionType + " is not a valid Transaction Type");
+                    runBank.writeFile(transactionType + " is not a valid Transaction Type");
                     continue;
                 }
                 //checks for both users even though one may be used
@@ -346,7 +350,7 @@ public class RunBank {
                     //checks to see if user exists
                     if (i == 0) {
                         if(selectedUser1 == null) {
-                            fileWriter("User: " + currUserName + " does not exist.");
+                            runBank.writeFile("User: " + currUserName + " does not exist.");
                             skip = true;
                             continue;
                         }
@@ -356,7 +360,7 @@ public class RunBank {
                         currUserName = firstNameUser2 + " " + lastNameUser2;
                         currAccount = accountStringUser2;
                         if(selectedUser2 == null) {
-                            fileWriter("User: " + currUserName + " does not exist.");
+                            runBank.writeFile("User: " + currUserName + " does not exist.");
                             skip = true;
                             continue;
                         }
@@ -368,7 +372,7 @@ public class RunBank {
                         accountTypeEnum = AccountType.valueOf(currAccount.toUpperCase());
                         currAccount = accountTypeEnum.name();
                     } catch (IllegalArgumentException e) {
-                        fileWriter(currAccount + " is not a valid Account Type");
+                        runBank.writeFile(currAccount + " is not a valid Account Type");
                         skip = true;
                         continue;
                     }
@@ -382,7 +386,7 @@ public class RunBank {
                     switch (currAccount.toUpperCase()) {
                         case "CHECKING":
                             if (currUserAccount.getChecking() == null) {
-                                fileWriter("No " + currAccount + " for user " + selectedUser1.getFullName());
+                                runBank.writeFile("No " + currAccount + " for user " + selectedUser1.getFullName());
                                 skip = true;
                                 continue;
                             }
@@ -394,7 +398,7 @@ public class RunBank {
                             break;
                         case "SAVINGS":
                             if (currUserAccount.getSavings() == null) {
-                                fileWriter("No " + currAccount + " for user " + selectedUser1.getFullName());
+                                runBank.writeFile("No " + currAccount + " for user " + selectedUser1.getFullName());
                                 skip = true;
                                 continue;
                             }
@@ -406,7 +410,7 @@ public class RunBank {
                             break;
                         case "CREDIT":
                             if (currUserAccount.getCredit() == null) {
-                                fileWriter("No " + currAccount + " for user " + selectedUser1.getFullName());
+                                runBank.writeFile("No " + currAccount + " for user " + selectedUser1.getFullName());
                                 skip = true;
                                 continue;
                             }
@@ -417,7 +421,7 @@ public class RunBank {
                             }
                             break;
                         default:
-                            fileWriter(currAccount + " is not a valid Account Type for " +
+                            runBank.writeFile(currAccount + " is not a valid Account Type for " +
                                     selectedUser1.getFullName());
                             skip = true;
                             continue;
@@ -435,7 +439,7 @@ public class RunBank {
                         }
                     }
                     catch (NumberFormatException e) {
-                        fileWriter("Invalid input: not a valid amount.");
+                        runBank.writeFile("Invalid input: not a valid amount.");
                         continue;
                     }
                 }
@@ -458,7 +462,7 @@ public class RunBank {
                 //result is written to file and console
                 String transactionResult = transactionManager.executeAndLogTransaction();
                 System.out.println("Transaction Results: "+ transactionResult);
-                fileWriter(transactionResult);
+                runBank.writeFile(transactionResult);
             }
         }
         catch (FileNotFoundException e) {
@@ -474,7 +478,7 @@ public class RunBank {
      *
      * Appends transactions to file
      */
-    public static void fileWriter(String currTransaction) {
+    public void writeFile(String currTransaction) {
         try {
             FileWriter myWriter = new FileWriter("transactionReport.txt", true);
             myWriter.write(currTransaction+ "\n");
@@ -604,14 +608,9 @@ public class RunBank {
             if (currUser == null){
                 System.out.println("User does not exist");
             }
-            else {
-                inputManger.checkPassword(currUser.getPassword());
-            }
-
         }
         return currUser;
     }
-
 
     /**
      * @param accounts,userFirstname,userLastName
@@ -731,12 +730,12 @@ public class RunBank {
      * handles the functionality of a bankAccount
      */
     public static void main(String[] args) {
-        List<Customer> accounts= fileReader();
+        List<Customer> accounts= fileReader("src/CS 3331 - Bank Users 69.csv");
 //        Comparator<Customer> compareByFullName = (Customer a1, Customer a2) -> a1.getFullName().compareTo( a2.getFullName() );
 //        Collections.sort(accounts, compareByFullName);
-        createFile();
-        executeFileTransactionActions(accounts);
 
+        runBank.createFile();
+        executeFileTransactionActions(accounts);
 
         TransactionManager transactionManager = null;
 
@@ -792,35 +791,11 @@ public class RunBank {
                     String zip = in.nextLine();
                     String address = "\""+streetNumber + " " + streetName + ", " + city + ", " + state.toUpperCase()
                             + ", " + zip + "\"";
-                    boolean vaildNumber = false;
-                    String phoneNumber = "";
-                    while(!vaildNumber) {
-                        System.out.println("Phone Number?");
-                        System.out.println("3-digit area code: ");
-                        String area = in.nextLine();
-                        System.out.println("7 digit phone number: ");
-                        String number = in.nextLine();
-                        if (area == null || number == null) {
-                            System.out.println("Not a valid phone number...");
-                            continue;
-                        }
-                        try {
-                            int intArea = Integer.parseInt(area);
-                            int intNumber = Integer.parseInt(number);
-                            String combinedNumber = area+number;
-                            if(combinedNumber.length() != 10)
-                                throw new NumberFormatException();
-                        } catch (NumberFormatException e) {
-                            System.out.println("Not a valid phone number...");
-                            continue;
-                        }
-                        phoneNumber = "(" + area + ") " + number.substring(0,3) + "-" + number.substring(3,7);
-                        break;
-                    }
-                    //Add email address
-                    System.out.println("Email address: ");
-                    String email = in.nextLine();
 
+                    //Add Phone Number
+                    String phoneNumber = inputManger.checkPhoneNumberInput();
+                    //Add Email Address
+                    String email = inputManger.checkEmailAddressInput();
                     //Add password
                     System.out.println("Password: ");
                     String password = in.nextLine();
@@ -897,7 +872,8 @@ public class RunBank {
                             userInfoResults = findUser(accounts).printAllInfo();
                         }
                         else {
-                            currBMUser.getBankStatement().writeBankStatementFile();
+                            currBMUser.getBankStatement().writeFile(
+                                    currBMUser.getBankStatement().getBankStatementSummary());
                             userInfoResults = "Created bankStatement for: " + currBMUser.getFullName();
                         }
 
@@ -916,7 +892,7 @@ public class RunBank {
                         userInfoResults += "End of List...";
                     }
                     System.out.println(userInfoResults);
-                    fileWriter(userInfoResults);
+                    runBank.writeFile(userInfoResults);
 
                     String resumeBankManagerInput =
                             inputManger.check_yes_no("Would you like to get info for another user?");
@@ -931,6 +907,9 @@ public class RunBank {
                 if (resumeUserSession) {
                     System.out.println("Please identify yourself:");
                     currUser = findUser(accounts);
+                    //Asks for user's password
+                    inputManger.checkPassword(currUser.getPassword());
+                    System.out.println();
                 }
                 //Functionality for individual user
                 while (resumeUserSession) {
@@ -982,7 +961,7 @@ public class RunBank {
                     //Writes the transaction executed by the user to the .txt file
                     String transactionResult = transactionManager.executeAndLogTransaction();
                     System.out.println(transactionResult);
-                    fileWriter(transactionResult);
+                    runBank.writeFile(transactionResult);
 
                     //Asks the user if they want to continue making transactions
                     String resumeUserInput = inputManger.check_yes_no("Would you like to make another transaction?");
