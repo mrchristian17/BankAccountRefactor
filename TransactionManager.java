@@ -1,5 +1,10 @@
 import java.text.DecimalFormat;
-
+/** 
+ * Executes a transaction based on the users input.
+ * @author Daniel C Moreno
+ * @version 4.0
+ * @since April 04, 2021
+ */
 public class TransactionManager {
 
     private Customer currUser;
@@ -10,9 +15,10 @@ public class TransactionManager {
     private double amount;
 
     /**
-     *  @param currUser
-     * @param transactionType
-     * @param accountType
+     * This constructor is used for inquiring.
+     * @param currUser Customer making the transaction.
+     * @param transactionType can be either "Pay", "Inquire", "Deposit", or "Withdraw".
+     * @param accountType can be either, "Checking", "Savings", or "Credit".
      *
      */
     public TransactionManager(Customer currUser, String transactionType, IAccount accountType) {
@@ -22,11 +28,11 @@ public class TransactionManager {
     }
 
     /**
-     *  @param currUser
-     * @param transactionType
-     * @param accountType
-     * @param amount
-     *
+     * This constructor is used for withdrawing or depositing.
+     * @param currUser Customer making the transaction.
+     * @param transactionType can be either "Pay", "Inquire", "Deposit", or "Withdraw".
+     * @param accountType can be either, "Checking", "Savings", or "Credit".
+     * @param amount The amount of money being used in this transaction.
      */
     public TransactionManager(Customer currUser, String transactionType, IAccount accountType, double amount) {
         this.currUser = currUser;
@@ -36,12 +42,12 @@ public class TransactionManager {
     }
 
     /**
-     *  @param currUser
-     * @param userForTransaction
-     * @param transactionType
-     * @param accountType
-     * @param userToPayAccountType
-     * @param amount
+     * This constructor is used for payments between Customer's.
+     * @param currUser Customer making the payment.
+     * @param useerForTransaction Customer being paid.
+     * @param transactionType can be either "Pay", "Inquire", "Deposit", or "Withdraw".
+     * @param accountType can be either, "Checking", "Savings", or "Credit".
+     * @param amount The amount of money being used in this transaction.
      *
      */
 
@@ -56,8 +62,8 @@ public class TransactionManager {
     }
 
     /**
-     *
-     * @return an explanation of the transaction that was executed
+     * Logs and prints the transaction that details of the transaction that was made.
+     * @return An explanation of the transaction that was executed
      */
     public String executeAndLogTransaction() {
         boolean transSuccessful = true;
@@ -97,12 +103,11 @@ public class TransactionManager {
     }
 
     /**
+     * Withdraws from one account, deposits into second account.
+     * Pay method handled here since, two different users are needed to complete the transaction.
+     * Also used as transfer method.
      *
-     * @return whether or not the pay transaction was successful
-     *
-     * Withdraws from one account, deposits into second account
-     * Pay method handled here since, two different users are needed to complete the transaction
-     * Also used as transfer method
+     * @return whether or not the pay transaction was successful.
      */
     public boolean pay() {
         boolean transSuccessful = true;
@@ -123,9 +128,9 @@ public class TransactionManager {
     }
 
     /**
-     *
-     * @param transactionSuccess
-     * @return log for the results from a pay transaction
+     * Prints and logs the results from a "pay" transaction.
+     * @param transactionSuccess boolean representing if payment was successful.
+     * @return Log for the results from a pay transaction.
      */
     public String printTransactionResultPAY(boolean transactionSuccess) {
         String currUserTransStatus = currUser.getFullName();
@@ -151,9 +156,9 @@ public class TransactionManager {
         return currUserTransStatus + userToPayTransStatus;
     }
     /**
-     *
-     * @param transactionSuccess
-     * @return log for the results from a withdraw transaction
+     * Prints and logs the results from a withdraw transaction.
+     * @param transactionSuccess boolean representing if the withdraw was successful.
+     * @return Log for the results from a withdraw transaction.
      */
     public String printTransactionResultWithdraw(boolean transactionSuccess) {
         String currUserTransStatus = currUser.getFullName();
@@ -171,9 +176,9 @@ public class TransactionManager {
     }
 
     /**
-     *
-     * @param transactionSuccess
-     * @return log for the results from a deposit transaction
+     * Prints and logs the results from a deposit transaction.
+     * @param transactionSuccess boolean representing if the deposit was a success.
+     * @return Log for the results from a deposit transaction.
      */
     public String printTransactionResultDeposit(boolean transactionSuccess) {
         String currUserTransStatus = currUser.getFullName();
@@ -191,8 +196,8 @@ public class TransactionManager {
     }
 
     /**
-     *
-     * @return log for the results from a balance inquiry transaction
+     * Prints and logs the results from a balance inquiry.
+     * @return Log for the results from a balance inquiry transaction.
      */
     public String printTransactionResultBalance() {
         String currUserTransStatus = currUser.getFullName() + " made a balance inquiry on " +
@@ -203,8 +208,8 @@ public class TransactionManager {
     }
 
     /**
-     *
-     * @param transactionSuccess
+     * Prints and logs the results of a transfer.
+     * @param transactionSuccess a boolean representing if a transfer was successful.
      * @return log for the results from a transfer transaction
      */
     public String printTransactionResultTransfer(boolean transactionSuccess) {
@@ -226,9 +231,9 @@ public class TransactionManager {
     }
 
     /**
-     *
-     * @param amount
-     * @return number in currency format
+     * Converts a double to match the monetary representation of a number.
+     * @param amount double to be formatted.
+     * @return Number in currency format.
      */
     public String toCurrency(double amount) {
         DecimalFormat numberFormat = new DecimalFormat("#.00");

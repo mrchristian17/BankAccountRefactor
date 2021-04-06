@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
+/** Represents a person that is a customer to the bank.
+ * @author Daniel C Moreno
+ * @version 4.0
+ * @since April 04, 2021
+ */
 
 public class Customer extends Person{
     private String password;
@@ -48,7 +53,7 @@ public class Customer extends Person{
         this.bankStatement = new BankStatement(this);
     }
 
-    //min info for new user
+    //main info for new user
     public Customer(String firstName, String lastName, String dateOfBirth, long identificationNumber,
                     String address, String phoneNumber, String email, String password,
                     long savingAccountNum, double savingBalance) {
@@ -62,8 +67,8 @@ public class Customer extends Person{
     }
 
     /**
-     *
-     * @return name of account, account number and current account balance for all accounts
+     * Provides the name of the account owner, its account number, and the current account balance for all accounts.
+     * @return A String containing each accounts information.
      */
     public String printAllInfo() {
 
@@ -85,11 +90,11 @@ public class Customer extends Person{
     }
 
     /**
-     *
+     * Allows a customer to transfer funds from one of their personal accounts to another.
      * @param transferAmount
      * @param srcAccountString
      * @param destAccountString
-     * @return whether or not the transaction was successful
+     * @return Boolean representing whether or not the transaction was successful.
      */
     public boolean transfer(double transferAmount, String srcAccountString, String destAccountString) {
         boolean transferSuccessful = true;
@@ -103,10 +108,9 @@ public class Customer extends Person{
     }
 
     /**
-     *
-     * @param account
-     * @return the specified account
-     * Ex: input = "Checking" will return the corresonding Customer's checking account object
+     * Returns a customers account, e.g Checking, Savings, or Credit.
+     * @param account A String that should be equal to either "Checking", "Savings", or "Credit'.
+     * @return The specified account.
      */
     public IAccount findAccount(String account) {
         switch(account){
@@ -120,18 +124,26 @@ public class Customer extends Person{
                 return null;
         }
     }
-
+    
+    /**
+     * Logs a customers transaction.
+     * @param currTransaction A String describing the trasnaction that was performed.
+     */
     public void addTransactions(String currTransaction) {
         transactions.add(currTransaction);
     }
-
+    
+    /**
+     * Returns all logged transactions that were made by a customer.
+     * @return A List of Strings containing transaction history.
+     */
     public List<String> getTransactions() {
         return this.transactions;
     }
 
     /**
-     *
-     * @return the customer's credit account
+     * Returns a Customer's Account of type Credit.
+     * @return Customer's credit account.
      */
     public IAccount getCredit() {
         return credit;
@@ -144,8 +156,8 @@ public class Customer extends Person{
     }
 
     /**
-     *
-     * @return customer's checking account
+     * Returns a Customer's Account of type Checking.
+     * @return Customer's checking account.
      */
     public IAccount getChecking() {
         return checking;
@@ -159,8 +171,8 @@ public class Customer extends Person{
     }
 
     /**
-     *
-     * @return customer's saving account
+     * Returns a Customer's Account of type Savings.
+     * @return Customer's saving account.
      */
     public IAccount getSavings() {
         return savings;
@@ -173,14 +185,26 @@ public class Customer extends Person{
         this.savings = saving;
     }
 
+    /**
+     * Returns a Customer's password which is used to perform transactions.
+     * @return Customer's unique password.
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets a Customer's password.
+     * @param password A String representing a Customer's password.
+     */
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
+    /**
+     * Returns a Customer's Bank Statement.
+     * @return CUstomer's bank statement.
+     */
     public BankStatement getBankStatement() {
         return this.bankStatement;
     }

@@ -15,7 +15,10 @@ public  class Savings extends Account {
         super.setAccountType("Savings");
 
     }
-
+    
+    /**
+     * Creates a new Savings account.
+     */
     public Savings() {
         super.setAccountType("Savings");
         // TODO Auto-generated constructor stub
@@ -23,7 +26,7 @@ public  class Savings extends Account {
 
     /**
      * Prints the account type and its ID.
-     * @returns s String
+     * @return A String describing a customer's specific account type, account number, and account balance.
      */
     public String getAccDetails() {
         String s = "Savings-"+this.getAccountID();

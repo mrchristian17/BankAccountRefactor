@@ -1,14 +1,26 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+/** Validates the input given by a customer or a bank employee.
+ * @author Daniel C Moreno
+ * @version 4.0
+ * @since April 04, 2021
+ */
+
 public class InputManager {
 
     private static Scanner in = new Scanner(System.in);
-
+    
+    /**
+     * Default constructor.
+     */
     public InputManager() {
     }
 
-    //DOB Address Phone #, savings account
+    /**
+     * Creates a new Customer based on the values assigned by the users input. (Name, Phone Number, Email, and an Initial deposit for their Savings Account.)
+     * @return A new Customer for the bank.
+     */
     public String newUser() {
         System.out.println("Please enter the minimum information required for a new user:");
         System.out.println("First Name?");
@@ -30,10 +42,10 @@ public class InputManager {
     }
 
     /**
-     * @return user type input
+     * Checks to make sure user input matches the user type options.
+     * Will continue to prompt user to reenter input until it's accepted.
+     * @return User type input.
      * <p>
-     * Checks to make sure user input matches the user type options
-     * Will continue to prompt user to reenter input until it's accepted
      */
     public String checkUserTypeInput() {
         String options = "Options: ";
@@ -61,10 +73,10 @@ public class InputManager {
     }
 
     /**
-     * @return transaction type input
+     * Checks to make sure user input matches the transaction type options.
+     * Will continue to prompt user to reenter input until it's accepted.
+     * @return Transaction type input.
      * <p>
-     * Checks to make sure user input matches the transaction type options
-     * Will continue to prompt user to reenter input until it's accepted
      */
     public String checkTransactionTypeInput() {
         RunBank.TransactionType transactionTypeEnum = null;
@@ -95,7 +107,12 @@ public class InputManager {
         }
         return transactionTypeEnum.name();
     }
-
+    
+    /**
+     * Parses input from the transaction file and verifies if the input is a valid transaction type.
+     * @param fileInput A file containing a series of transactions to be performed.
+     * @return A boolean representing if the input is a valid type of transaction.
+     */
     public boolean checkFileTransactionTypeInput(String fileInput) {
         RunBank.FileTransaction transactionTypeEnum = null;
         try {
@@ -108,10 +125,10 @@ public class InputManager {
 
 
     /**
-     * @return account type input
+     * Checks to make sure user input matches the account type options.
+     * Will continue to prompt user to reenter input until it's accepted.
+     * @return Account type input.
      * <p>
-     * Checks to make sure user input matches the account type options
-     * Will continue to prompt user to reenter input until it's accepted
      */
     public String checkAccountTypeInput() {
         String options = "Options: ";
@@ -138,6 +155,11 @@ public class InputManager {
         return accountType.name();
     }
 
+    /**
+     * Parse input from the transaction file and verifies if the input is a valid Account type.
+     * @param fileInput A file containing a series of transactions.
+     * @return A boolean representing if the input is a valid account type.
+     */
     public boolean checkAccountTypeInput(String fileInput) {
         RunBank.AccountType accountType = null;
         try {
@@ -151,10 +173,10 @@ public class InputManager {
 
 
     /**
-     * @return user Yes or No input
+     * Checks to make sure user input matches the yes or no type options.
+     * Will continue to prompt user to reenter input until it's accepted.
+     * @return User's Yes or No input.
      * <p>
-     * Checks to make sure user input matches the yes or no type options
-     * Will continue to prompt user to reenter input until it's accepted
      */
     //Checks user input until user selects yes or no
     public String check_yes_no(String text_input) {
@@ -176,9 +198,9 @@ public class InputManager {
     }
 
     /**
-     * @return user a or b option
      * Checks to make sure user input matches the A or B type options
      * Will continue to prompt user to reenter input until it's accepted
+     * @return User a or b option.
      */
     //compares enum AB to user input
     public String checkABInput() {
@@ -199,11 +221,11 @@ public class InputManager {
 
 
     /**
-     * @return user money input
+     * Checks to make sure user input is an acceptable numerical value.
+     * Will continue to prompt user to reenter input until it's accepted.
+     * Does not accept negative values.
+     * @return User money input.
      * <p>
-     * Checks to make sure user input is an acceptable numerical value
-     * Will continue to prompt user to reenter input until it's accepted
-     * Does not accept negative values
      */
     public double checkMoneyInput(String transType) {
         String message = "How much money would you like to " + transType + "?";
@@ -222,7 +244,12 @@ public class InputManager {
         }
         return inputAmount;
     }
-
+    
+    /**
+     * Checks to make sure user input is in an acceptable format for a date.
+     * @return String in the correct date format.
+     * @throws ParseException if user input does not match the format required to represent their DOB.
+     */
     public String checkDateOfBirthInput() throws ParseException {
         String regex = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
         String inputDobPattern = "MM/dd/yy";
@@ -243,6 +270,10 @@ public class InputManager {
         }
     }
 
+    /**
+     * Checks to make sure user input is in an acceptable format for a phone number.
+     * @return String with the phone number in the correct format.
+     */
     public String checkPhoneNumberInput() {
         String phoneNumber = "";
         while(true) {
@@ -271,6 +302,10 @@ public class InputManager {
         return phoneNumber;
     }
 
+    /**
+     * Checks to make sure user input is in an acceptable format for an email address.
+     * @return String with the email address in the correct format.
+     */
     public String checkEmailAddressInput() {
         //regex that looks for @ and ensures that there is a decimal extension at the end
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -282,7 +317,11 @@ public class InputManager {
             System.out.println("Invalid email. Please try again");
         }
     }
-
+    
+    /**
+     * Checks to  make sure the user entered the correct password.
+     * @param correctPassword the password that the users input should match with.
+     */
     public void checkPassword(String correctPassword)  {
         while (true) {
             try {
