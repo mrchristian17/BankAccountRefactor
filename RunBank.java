@@ -1,7 +1,7 @@
 /*
-Name: Daniel C Moreno
+CSName: Daniel C Moreno
 Date: 02/24/21
-Course: CS 3331 – Advanced Object-Oriented Programming - Spring 2021
+Course: CS 3331 â€“ Advanced Object-Oriented Programming - Spring 2021
 Instructor: Dr. Daniel Mejia
 Assignment: Programming Assignment 2
 
@@ -11,20 +11,20 @@ Moreover, all deliverables including,
 but not limited to the source code, lab report and output files were written and produced by me alone.
  */
 
-/**
- *
- * @author Daniel C Moreno
- * @version 2.0
- * @since February 24, 2021
- *
- * This class contains the main method where the bank is controlled from
- */
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+/**
+ * Main class that runs the Bank simulation.
+ * @author Daniel C Moreno
+ * @version 2.0
+ * @since February 24, 2021
+ *
+ * This class contains the main method where the bank is controlled from.
+ */
 
 public class RunBank implements Printable {
     private static Scanner  in= new Scanner(System.in);
@@ -130,11 +130,12 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param
-     * @return customerList
-     *
      * Reads file and creates list of Customer objects
-     * Currently allocates: First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Credit Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance
+     * Currently allocates: First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Credit Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance.
+
+     * @param fileName the name of the file that needs to be read to create the List of Customers.
+     * @return List containing all customers.
+     *
      */
     public static List<Customer> fileReader(String fileName) {
         List<Customer> accounts = new ArrayList<Customer>();
@@ -250,12 +251,7 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param
-     * @return none
-     *
-     * Creates a file of bank account transactions
-     * Overwrites transactionsReport.txt file when new instance of program is run
-     * Has catches in the case that there are errors
+     * Creates a file of bank account transactions. Will overwrite transactionsReport.txt file when new instance of program is run.
      */
     public void createFile() {
         //Creates transactions file
@@ -275,11 +271,11 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param accounts
-     *
      * Executes Transactions Specified in the File
      * if there is an error in the transaction instructions, it will be logged into the
-     * transactionreport.txt and will continue through the whole file
+     * transactionreport.txt and will continue through the whole file.
+     * 
+     * @param accounts List of all the customers associated to the bank.
      */
     public static void executeFileTransactionActions(List<Customer> accounts) {
         try {
@@ -472,11 +468,9 @@ public class RunBank implements Printable {
 
     }
 
-    /**
-     * @param currTransaction
-     * @return currentTransaction
-     *
-     * Appends transactions to file
+    /**   
+     * Appends transaction statement to file.
+     * @param currTransaction a String describing the details of a transaction that was performed.
      */
     public void writeFile(String currTransaction) {
         try {
@@ -491,10 +485,8 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param customers
-     * @return none
-     *
-     * Writes modified user bank account information to a csv file in the same format as the one that was read
+     * Writes modified user bank account information to a CSV file in the same format as the one that was read.
+     * @param customers List of Customers associated to the bank.
      */
     public static void updatedCSVFileWriter(List<Customer> customers) {
         System.out.println("Writing an updated csv file");
@@ -584,10 +576,8 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param accounts
-     * @return none
-     *
-     * Gets the first and last name of a user and finds their account if it exists
+     * Gets the first and last name of a user and finds their account in the List of Customers if it exists.
+     * @param accounts List of Customer accounts associated to the bank.
      */
     public static Customer findUser(List<Customer> accounts) {
         Customer currUser = null;
@@ -613,10 +603,11 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param accounts,userFirstname,userLastName
-     * @return customerAccount that is being seaarched for
-     *
-     * checks if the user exists using the first and last name
+     * Checks if the user exists using the first and last name
+     * @param accounts List of Customer associated to the bank.
+     * @param userFirstName A bank users first name.
+     * @param userLastName A bank users last name.
+     * @return The Customer being searched for.
      */
     public static Customer checkUserExists(List<Customer> accounts, String userFirstName, String userLastName) {
         Customer currAccount = null;
@@ -634,10 +625,11 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param accounts,accountType
-     * @return customerAccount or null if account doesn't exist
+     * Uses account number and account type to find user.
+     * @param accounts List of Customers associated to the bank.
+     * @param accountType Type of bank account, either Savings, Checking, or Credit.
+     * @return A Customers account or null if account doesn't exist.
      *
-     * uses account number and account type to find user
      */
     public static Customer checkAccountExists(List<Customer> accounts, String accountType) {
         Customer currAccount = null;
@@ -679,10 +671,8 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param
-     * @return inputName wihtout spaces
-     *
-     * cuts out spaces from user input for name
+     * Cuts out spaces from user input for name.
+     * @return Users name without spaces.
      */
     public static String checkUserNameInput() {
         String inputName = in.nextLine();
@@ -691,11 +681,11 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param accountType,currCustomer
-     * @return customerAccount
-     *
-     * returns specified accountType:
+     * Returns a specified accountType:
      * Credit vs Saving vs Checking
+     * @param accountType Account type, e.g. Checking, Savings, or Credit.
+     * @param currCustomer Customer being inquired.
+     * @return A bank account type for a given cutomer, e.g Checking, Savings, or Credit.
      */
     public static IAccount findUserAccount(String accountType, Customer currCustomer) {
         switch (accountType) {
@@ -711,8 +701,9 @@ public class RunBank implements Printable {
     }
 
     /**
-     * @param accounts
-     * @return all info for all accounts
+     * Prints all the information related to a specific Customer.
+     * @param accounts List of Customer associated to the bank.
+     * @return String with all info for all accounts
      */
     public static String printAllUserAccountInfo(List<Customer> accounts) {
         String userAccountInfo = "\nInquire all accounts:\n";
@@ -724,10 +715,10 @@ public class RunBank implements Printable {
     }
 
     /**
+     * Handles the functionality of a bankAccount.
      * @param args
      * @return
      *
-     * handles the functionality of a bankAccount
      */
     public static void main(String[] args) {
         List<Customer> accounts= fileReader("src/CS 3331 - Bank Users 69.csv");
@@ -856,8 +847,8 @@ public class RunBank implements Printable {
                 }
                 //Functionality for bankmanager
                 while (resumeBankManagerSession) {
-                    System.out.println("“A. Inquire account by name”\n" +
-                            "“B. Inquire account by type/number”\n" +
+                    System.out.println("â€œA. Inquire account by nameâ€�\n" +
+                            "â€œB. Inquire account by type/numberâ€�\n" +
                             "C. Inquire all accounts");
                     String abc = inputManger.checkABInput();
                     String userInfoResults = "";

@@ -5,6 +5,13 @@ import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.List;
+/**
+ * Writes a Bank Statement outlining a given customers bank information.
+ * @author Daniel C Moreno
+ * @version 4.0
+ * @since April 04, 2021
+ * 
+ */
 
 public class BankStatement implements Printable {
     private Customer customer;
@@ -15,16 +22,14 @@ public class BankStatement implements Printable {
     private String date;
 
     /**
-     * default constructor
+     * Default constructor.
      */
     public BankStatement() {}
 
     /**
+     * If no checking/credit account is initialized, then starting balances are set to -1. THe file name is customername.txt.
      * @param customer
      *
-     * Constructor
-     * if no checking/credit initialized, then start balances are set to -1
-     * file name uses customername.txt
      */
     public BankStatement(Customer customer) {
         this.customer = customer;
@@ -44,7 +49,7 @@ public class BankStatement implements Printable {
     }
 
     /**
-     * Creates a new file or overwrites file if it already exists
+     * Creates a new file or overwrites file if it already exists.
      */
     public void createFile() {
         //Creates file
@@ -64,7 +69,7 @@ public class BankStatement implements Printable {
     }
 
     /**
-     * writes bank statement with user info, transactions and starting and final balances for all accounts
+     * Writes bank statement with user info, transactions and starting and final balances for all accounts.
      */
     public void writeFile(String bankSummary) {
         //calls create file
@@ -82,7 +87,7 @@ public class BankStatement implements Printable {
     }
 
     /**
-     * @return all transactions executed from beginning to this point of the session
+     * Returns A String containing all transactions executed from beginning to this point of the session.
      */
     public String getBankStatementSummary() {
         List<String> transactions = this.customer.getTransactions();
@@ -101,7 +106,8 @@ public class BankStatement implements Printable {
     }
 
     /**
-     * @return customer information
+     * Returns a customers full name, ID number, DOB, address, and phone number.
+     * @return Customers general information.
      *
      */
     public String getCustomerInformation() {
@@ -114,7 +120,8 @@ public class BankStatement implements Printable {
     }
 
     /**
-     * @return account info and balances from the beginning of the session
+     * Returns the starting balance of a customers account.
+     * @return Account information and balances from the beginning of the session.
      */
     public String getStartingAccountInformation() {
         String accountInfo = "\nStart of Period Balances:\n";
@@ -152,7 +159,8 @@ public class BankStatement implements Printable {
     }
 
     /**
-     * @return account info and balances at this point of the session
+     * Returns the current balance on a customers account.
+     * @return Account info and balance at this point of the session.
      */
     public String getCurrentAccountInformation() {
         String accountInfo = "\nEnd of Period Balances:\n";
@@ -181,14 +189,16 @@ public class BankStatement implements Printable {
     }
 
     /**
-     * @return current date
+     * Returns the current date.
+     * @return  String representing the current date.
      */
     public String getDate() {
         return this.date;
     }
 
     /**
-     * @return double in $currency format
+     * Formats a number to match the common way of representing a monetary number.
+     * @return Double in $currency format.
      */
     public String toCurrency(double amount) {
         DecimalFormat numberFormat = new DecimalFormat("#.00");

@@ -1,5 +1,6 @@
 /**
- * Interface is subset of Abstract class
+ * Interface is subset of Abstract class.
+ * @author Elijah Pele
  * @version 3.0
  * @since February 24, 2021
  *
@@ -24,16 +25,14 @@ public abstract class Person {
     }
 
     /**
-     *
-     * @param firstName
-     * @param lastName
-     * @param dateOfBirth
-     * @param identificationNumber
-     * @param address
-     * @param phoneNumber
-     * @param email
-     *
-     * constructor for data read from csv file
+     * Constructor for data read from CSV file.
+     * @param firstName Customer's first name.
+     * @param lastName Customer's last name.
+     * @param dateOfBirth Customer's date of birth.
+     * @param identificationNumber Customer's ID number.
+     * @param address Customer's address.
+     * @param phoneNumber Customer's phone number.
+     * @param email Customer's email address.
      */
     public Person(String firstName, String lastName, String dateOfBirth, long identificationNumber,
                   String address, String phoneNumber, String email) {
@@ -46,14 +45,15 @@ public abstract class Person {
         this.email = email;
     }
     /**
-     *
-     * @return person's first name
+     * Returns Persons's first name.
+     * @return Person's first name.
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
+     * Assigns a value to person's first name.
      * {@link Person#getFirstName()}
      */
     public void setFirstName(String firstName) {
@@ -61,14 +61,15 @@ public abstract class Person {
     }
 
     /**
-     *
-     * @return person's last name
+     * Returns Person's last name.
+     * @return Person's last name.
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
+     * Assigns a value to Person's last name.
      * {@link Person#getLastName()}
      */
     public void setLastName(String lastName) {
@@ -76,20 +77,21 @@ public abstract class Person {
     }
 
     /**
-     *
-     * @return person's first and last name space seperated
+     * Returns Person's first and last name.
+     * @return Person's first and last name space separated.
      */
     public String getFullName() { return this.firstName + " " + this.lastName;}
 
     /**
-     *
-     * @return person's date of birth as string
+     * Returns Person's date of birth.
+     * @return Person's date of birth as string.
      */
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
     /**
+     * Assigns a value to Person's date of birth.
      * {@link Person#getDateOfBirth()}
      */
     public void setDateOfBirth(String dateOfBirth) {
@@ -97,7 +99,7 @@ public abstract class Person {
     }
 
     /**
-     *
+     * Returns a Person's identification number.
      * @return person's identification number
      */
     public long getIdentificationNumber() {
@@ -105,6 +107,7 @@ public abstract class Person {
     }
 
     /**
+     * Assigns a value to the Person's identification number.
      * {@link Person#getIdentificationNumber()}
      */
     public void setIdentificationNumber(long identificationNumber) {
@@ -112,7 +115,7 @@ public abstract class Person {
     }
 
     /**
-     *
+     * Returns a Person's address.
      * @return person's address
      */
     public String getAddress() {
@@ -120,6 +123,7 @@ public abstract class Person {
     }
 
     /**
+     * Assigns a value to Person's address.
      * {@link Person#getAddress()}
      */
     public void setAddress(String address) {
@@ -127,7 +131,7 @@ public abstract class Person {
     }
 
     /**
-     *
+     * Returns a  Person's phone number.
      * @return person's phone number
      */
     public String getPhoneNumber() {
@@ -135,6 +139,7 @@ public abstract class Person {
     }
 
     /**
+     * Assigns a value to a persons phone number.
      * {@link Person#getPhoneNumber()}
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -142,20 +147,25 @@ public abstract class Person {
     }
 
     /**
-     * @return person's email address
+     * Returns a persons email address.
+     * @return String with email address.
      */
     public String getEmail() {
         return this.email;
     }
 
     /**
+     * Assigns a value to Person's email address.
      * {@link Person#getEmail()}
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
-
+    /**
+     * Returns Person's last and first name.
+     * @return A Persons's last name and first name.
+     */
     public String fullName() {
         String s = this.firstName +" " +this.lastName;
         return s;

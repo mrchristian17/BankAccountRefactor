@@ -1,5 +1,5 @@
 /**
- * An Absract class that will represent the basic functionalities of a bank Account
+ * An Absract class that will represent the basic functionalities of a bank Account.
  * @author Elijah Pele
  * @version 3.0
  * @since March 03, 2021
@@ -9,11 +9,14 @@ public abstract class Account implements IAccount{
     private double balance;
     private long accountID;
     private String accountType;
-
+    
+    /**
+     * Creates an Account without initializing any values.
+     */
     public Account() {}
 
     /**
-     *
+     * Creates an Account given an account ID and a starting balance for the account.
      * @param accID an identification unique to an account.
      * @param amount the amount of money that is being assigned to this account.
      */
@@ -25,11 +28,11 @@ public abstract class Account implements IAccount{
 
     //refactor
     /**
-     * @param depositAmount
-     * @return if deposit was successful
+     * Adds money into corresponding bank account.
+     * @param depositAmount the amount of money that is being deposited.
+     * @return A boolean representing if a deposit was successful.
      * @author Daniel Moreno
      *
-     * deposit adds money into corresponding bank account
      */
     public boolean deposit(double depositAmount) {
         boolean depositSuccessful = true;
@@ -45,12 +48,11 @@ public abstract class Account implements IAccount{
 
     /**
      *
-     * @param withdrawAmount
-     * @return if the withdraw was successful
+     * Takes out money from bank account cannot take out more money than the current account balance.
+     * @param withdrawAmount the amount of money that is being withdrawn.
+     * @return A boolean representing if a withdraw was successful.
      * @author Daniel Moreno
      *
-     * withdraw takes out money from bank account
-     * cannot take out more money than the current account balance
      */
     public boolean withdraw(double withdrawAmount) {
         boolean withdrawSuccessful = true;
@@ -65,15 +67,15 @@ public abstract class Account implements IAccount{
 
     /**
      * Returns the amount that an account was initialized at.
-     * @return startingBalance
+     * @return The starting balance of an account.
      */
     public double getStartingBalance() {
         return this.startingBalance;
     }
 
     /**
-     * Returns the balance in the account
-     * @return balance
+     * Prints the account type and its ID.
+     * @return A String describing a customer's specific account type, account number, and account balance.
      */
     public double getBalance() {
         return balance;
@@ -89,7 +91,7 @@ public abstract class Account implements IAccount{
 
     /**
      * Returns the accounts ID
-     * @return accountID
+     * @return An accounts ID.
      */
     public long getAccountID() {
         return accountID;
@@ -105,34 +107,34 @@ public abstract class Account implements IAccount{
 
     /**
      * Returns the current balance on the account
-     * @return balance
+     * @return THe balance of a specified account.
      */
     public double inquire() {
         return this.getBalance();
     }
 
     /**
-     * Returns the accounts type and account ID
-     * @return accountDetails
+     * Prints the account type and its ID.
+     * @returns A String with the account type, account number.
      */
     public abstract String getAccDetails();
 
     /**
      * Returns the accounts type, account ID, and balance.
-     * @return balnaceDetails
+     * @return An accounts account number, the account type, and its current balance.
      */
     public abstract String getBalanceDetails();
 
     /**
      * Returns the type account that this is classified as.
-     * @return accountType
+     * @return The type of account e.g Checking, Savings, Credit.
      */
     public String getType() {
         return this.accountType;
     }
     /**
-     * Sets the type of Account that this account will be classifies as
-     * @param s The account type
+     * Sets the type of Account that this account will be classifies as, e.g Checking, Savings, Credit.
+     * @param s The account type.
      */
     public void setAccountType(String s) {
         this.accountType =s;
